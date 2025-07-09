@@ -20,7 +20,12 @@ fun FirebaseAuthAppNavigation() {
             LoginScreen(
                 authViewModel,
                 onLoginSuccess = {
-                    navController.navigate(NavRoutes.HomeScreen.route){
+                    navController.navigate(NavRoutes.HomeScreen.route) {
+                        launchSingleTop = true
+                    }
+                },
+                goToSignUpScreen = {
+                    navController.navigate(NavRoutes.SignUpScreen.route){
                         launchSingleTop = true
                     }
                 }
@@ -30,10 +35,14 @@ fun FirebaseAuthAppNavigation() {
             SignUpScreen(
                 authViewModel,
                 onSignUpSuccess = {
-                    navController.navigate(NavRoutes.HomeScreen.route){
+                    navController.navigate(NavRoutes.HomeScreen.route) {
                         launchSingleTop = true
                     }
-                }
+                },
+                gotToLoginScreen = {
+                    navController.navigate(NavRoutes.LoginScreen.route){
+                        launchSingleTop = true
+                    } }
             )
         }
         composable(route = NavRoutes.HomeScreen.route) {

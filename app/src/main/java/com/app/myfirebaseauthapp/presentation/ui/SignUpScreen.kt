@@ -1,5 +1,6 @@
 package com.app.myfirebaseauthapp.presentation.ui
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -32,6 +33,7 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color.Companion.Black
 import androidx.compose.ui.graphics.Color.Companion.Blue
 import androidx.compose.ui.graphics.Color.Companion.White
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.font.FontWeight
@@ -42,13 +44,18 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.app.myfirebaseauthapp.presentation.AuthViewModel
+import com.app.myfirebaseauthapp.util.DarkItemsStatusLightNavBars
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SignUpScreen(
     authViewModel: AuthViewModel,
-    onSignUpSuccess: () -> Unit
+    onSignUpSuccess: () -> Unit,
+    gotToLoginScreen: () -> Unit
 ) {
+
+    val context = LocalContext.current
+    DarkItemsStatusLightNavBars(context)
 
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
@@ -144,10 +151,23 @@ fun SignUpScreen(
                 onClick = { authViewModel.signUp(email, password) },
                 modifier = Modifier.fillMaxWidth(0.8f),
                 enabled = !uiState.isLoading,
-                colors = ButtonDefaults.buttonColors(containerColor = Blue.copy(0.7f))
+                colors = ButtonDefaults.buttonColors(containerColor = Blue.copy(0.5f))
             ) {
-                Text("SignUp", fontSize = 15.sp, modifier = Modifier.padding(10.dp))
+                Text(
+                    "Sign Up",
+                    fontSize = 15.sp,
+                    modifier = Modifier
+                        .padding(10.dp)
+                )
             }
+            Spacer(Modifier.height(40.dp))
+            Text(
+                "Already have an account? Login",
+                fontSize = 15.sp,
+                modifier = Modifier
+                    .padding(10.dp)
+                    .clickable { gotToLoginScreen() }
+            )
         }
     }
 }
