@@ -2,6 +2,9 @@ package com.app.myfirebaseauthapp.di
 
 import com.app.myfirebaseauthapp.remote.FirebaseAuthService
 import com.app.myfirebaseauthapp.remote.FirebaseAuthServiceImpl
+import com.app.myfirebaseauthapp.usecases.FirebaseLoginUseCase
+import com.app.myfirebaseauthapp.usecases.FirebaseSignUpUseCase
+import com.app.myfirebaseauthapp.usecases.GetCurrentUserUseCase
 import com.google.firebase.auth.FirebaseAuth
 import dagger.Module
 import dagger.Provides
@@ -23,4 +26,21 @@ object FirebaseAppModule {
         return FirebaseAuthServiceImpl(auth)
     }
 
+    @Provides
+    @Singleton
+    fun provideLoginUseCase(authService: FirebaseAuthService): FirebaseLoginUseCase {
+        return FirebaseLoginUseCase(authService)
+    }
+
+    @Provides
+    @Singleton
+    fun provideSignUpUseCase(authService: FirebaseAuthService): FirebaseSignUpUseCase {
+        return FirebaseSignUpUseCase(authService)
+    }
+
+    @Provides
+    @Singleton
+    fun provideGetCurrentUserUseCase(authService: FirebaseAuthService): GetCurrentUserUseCase {
+        return GetCurrentUserUseCase(authService)
+    }
 }
