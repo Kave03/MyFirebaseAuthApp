@@ -1,5 +1,6 @@
 package com.app.myfirebaseauthapp.di
 
+import com.app.myfirebaseauthapp.remote.FirebaseAuthService
 import com.app.myfirebaseauthapp.remote.FirebaseAuthServiceImpl
 import com.google.firebase.auth.FirebaseAuth
 import dagger.Module
@@ -18,7 +19,7 @@ object FirebaseAppModule {
 
     @Provides
     @Singleton
-    fun provideFirebaseAuthService(auth: FirebaseAuth): FirebaseAuthServiceImpl {
+    fun provideFirebaseAuthService(auth: FirebaseAuth): FirebaseAuthService {
         return FirebaseAuthServiceImpl(auth)
     }
 
