@@ -3,6 +3,8 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     id("com.google.gms.google-services")
+    id("com.google.devtools.ksp")
+    id("com.google.dagger.hilt.android")
 }
 
 android {
@@ -60,4 +62,11 @@ dependencies {
 
     implementation(platform("com.google.firebase:firebase-bom:33.16.0"))
     implementation("com.google.firebase:firebase-auth-ktx")
+
+    val hiltVersion = "2.50"
+    implementation("com.google.dagger:hilt-android:$hiltVersion")
+    testImplementation("com.google.dagger:hilt-android-testing:$hiltVersion")
+    ksp("com.google.dagger:hilt-android-compiler:$hiltVersion")
+    ksp("androidx.hilt:hilt-compiler:1.2.0")
+    implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
 }
